@@ -25,20 +25,32 @@ class V1::EntitiesController < ApplicationController
   end
 
   def create
-    puts params[:entity].to_json
-    uri = URI.parse("https://api.wit.ai/entities/intent/values?v=20160526")
+    entities = params[:entities]
+    entities.each do |entity|
+      uri = URI.parse("https://api.wit.ai/entities/" + entity[:id] + "/values?v=20160526")
+      response = postData(uri, entity[:values][0].to_json)
+      if response[:error]
+        uri = URI.parse("https://api.wit.ai/entities?v=20160526")
+        response = postData(uri, entity)
+      end
+    end
+    respond_to do |format|
+      format.json { render :json => {stat: 'ok'}}
+    end
+  end
+
+  private
+  def postData(uri, body)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     request = Net::HTTP::Post.new(uri.request_uri)
     #set header
     request["Authorization"] = "Bearer VWZA77MGCI5NFC633GUSJ2TKZGKB5DRP"
     request["Content-Type"] = "application/json"
-    request.body = params[:entity].to_json
-
+    # puts entity[:values][0].inspect
+    request.body = body
     response = http.request(request)
-    puts :json => response.body
-    respond_to do |format|
-      format.json { render :json => response.body}
-    end
+    return response
   end
+
 end
