@@ -4,7 +4,7 @@ class V1::EntitiesController < ApplicationController
 
   def index
     respond_to do |format|
-      format.json { render :json => {stat: 'index'} }
+      format.html { render :json => {stat: 'helloworld'} }
     end
   end
 

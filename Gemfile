@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'capistrano-rails', :group => :development
+gem 'capistrano-bundler'
+gem 'capistrano-passenger', :group => :development
 gem 'rubypython'
 
 gem 'rack-cors', require: 'rack/cors'
