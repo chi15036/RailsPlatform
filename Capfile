@@ -18,6 +18,10 @@ require 'capistrano/passenger'
 require "capistrano/scm/git"
 install_plugin Capistrano::SCM::Git
 
+require 'capistrano/rvm'
+set :rvm_type, :user
+set :rvm_ruby_version, '2.2.4-p230'
+
 # Include tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:

@@ -6,6 +6,7 @@ set :repo_url, "git@github.com:chi15036/RailsPlatform.git"
 set :deploy_to, '/home/ubuntu/rails-platform'
 set :keep_releases, 5
 set :admin_runner, "ubuntu"
+set :use_sudo, false
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

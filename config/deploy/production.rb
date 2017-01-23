@@ -60,7 +60,7 @@ server "54.65.121.122", user: "ubuntu", roles: %w{app db web}, my_property: :my_
 #     # password: "please use keys"
 #   }
 
-set :ssh_options, {
-  keys: %w(/Users/chi/Desktop/jp2tvnowcom.pem),
-  forward_agent: true
-}
+# set :ssh_options, {
+#   keys: %w(/Users/chi/Desktop/jp2tvnowcom.pem),
+#   forward_agent: true
+# }
