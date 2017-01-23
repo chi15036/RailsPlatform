@@ -1,3 +1,4 @@
+require 'open3'
 class V1::EntitiesController < ApplicationController
 
   @@Authorization = "Bearer 3EJEHFVZ7YUPQF3HFMBOGAK2UYWD5PFG"
@@ -9,7 +10,7 @@ class V1::EntitiesController < ApplicationController
   end
 
   def show
-    words, flags = cutWord(params[:sentence])
+    words = cutWord(params[:sentence])
     sentence = URI.encode(words.join(" "))
     uri = URI.parse("https://api.wit.ai/message?v=20160526&q=" + sentence)
     http = Net::HTTP.new(uri.host, uri.port)
@@ -59,23 +60,11 @@ class V1::EntitiesController < ApplicationController
 
   private
   def cutWord(sentence)
-    RubyPython.start # start the Python interpreter
-    sys = RubyPython.import("sys")
-    sys.path.append("#{Rails.root}/lib")
-    taiba = RubyPython.import('Taiba')
-    cut_words = taiba.lcut(sentence, true).to_a  #我也不知為何第二個參數一定要true...
-    puts cut_words
-    words = []
-    flags = []
-    cut_words.each do |word|
-      word, flag = word.to_s.split('/')
-      words << word
-      flags << flag
-    end
-    puts words
-    return words, flags
-    # # RubyPython.stop # stop the Python interpreter
-    # result = exec("python #{Rails.root}/lib/Taiba/main.py #{sentence}")
+    result = `python #{Rails.root}/lib/Taiba/main.py #{sentence}`
+    puts "RETURN FROM PYTHON"
+    result = result.tr("[]'\n", '').split(',')
+    puts result
+    return result
   end
 
 
