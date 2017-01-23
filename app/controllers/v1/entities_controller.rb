@@ -60,7 +60,7 @@ class V1::EntitiesController < ApplicationController
 
   private
   def cutWord(sentence)
-    result = `python #{Rails.root}/lib/Taiba/main.py #{sentence}`
+    result = `python #{Rails.root}/lib/main.py #{sentence}`
     puts "RETURN FROM PYTHON"
     result = result.tr("[]'\n", '').split(',')
     puts result
