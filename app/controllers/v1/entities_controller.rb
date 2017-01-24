@@ -1,7 +1,7 @@
 require 'open3'
 class V1::EntitiesController < ApplicationController
 
-  @@Authorization = "Bearer 3EJEHFVZ7YUPQF3HFMBOGAK2UYWD5PFG"
+  @@Authorization = "Bearer B7B4N3LDZBOUZFJVHVJDRLIBWNOTCW5X"
 
   def index
     respond_to do |format|
