@@ -60,7 +60,7 @@ class V1::EntitiesController < ApplicationController
 
   private
   def cutWord(sentence)
-    uri = URI.parse("http://" + request.env['SERVER_NAME'] + ":5000/cut?message=" + URI.encode(sentence))
+    uri = URI.parse("http://" + request.env['SERVER_NAME'] + ":5000/cut?message=" + URI.encode(sentence.to_s))
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Get.new(uri.request_uri)
     result = http.request(request)
