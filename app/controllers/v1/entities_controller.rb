@@ -60,9 +60,11 @@ class V1::EntitiesController < ApplicationController
 
   private
   def cutWord(sentence)
-    result = `python #{Rails.root}/lib/main.py #{sentence}`
-    puts "RETURN FROM PYTHON"
-    result = result.tr("[]'\n", '').split(',')
+    uri = URI.parse("http://" + request.env['SERVER_NAME'] + ":5000/cut?message=" + URI.encode(sentence))
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri)
+    result = http.request(request)
+    result = result.body.tr("[]'\n", '').split(',')
     puts result
     return result
   end
